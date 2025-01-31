@@ -1,27 +1,27 @@
 #include <iostream>
+#include <tuple>
 #include <vector>
 
 #include "aoc/utils.hpp"
 
 typedef uint64_t input_t;
 
-void part_1(std::vector<input_t> const& inputs)
+std::tuple<input_t, input_t> part_1(std::vector<input_t> const& inputs)
 {
   for (auto num1_ptr = inputs.cbegin(); num1_ptr < inputs.cend() - 1; num1_ptr++)
   {
     for (auto num2_ptr = num1_ptr + 1; num2_ptr < inputs.cend(); num2_ptr++)
     {
+      if (*num1_ptr + *num2_ptr == 2020)
       {
-        std::cout
-          << "Found numbers " << *num1_ptr << " and " << *num2_ptr
-          << " that sum to 2020. Result is " << *num1_ptr * *num2_ptr << std::endl;
-        return;
+        return {*num1_ptr, *num2_ptr};
       }
     }
   }
+  return {};
 }
 
-void part_2(std::vector<input_t> const& inputs)
+std::tuple<input_t, input_t, input_t> part_2(std::vector<input_t> const& inputs)
 {
   for (auto num1_ptr = inputs.cbegin(); num1_ptr < inputs.cend() - 2; num1_ptr++)
   {
@@ -31,20 +31,23 @@ void part_2(std::vector<input_t> const& inputs)
       {
         if (*num1_ptr + *num2_ptr + *num3_ptr == 2020)
         {
-          std::cout << "Found numbers " << *num1_ptr << " + " << *num2_ptr << " + "
-                    << *num3_ptr << " that sum to 2020. Result is "
-                    << *num1_ptr * *num2_ptr * *num3_ptr << std::endl;
+          return {*num1_ptr, *num2_ptr, *num3_ptr};
         }
       }
     }
   }
+  return {};
 }
 
 int main()
 {
-  std::vector const inputs = utils::read_input<input_t>(__FILE__);
+  std::vector const inputs = utils::read_input_to_vector<input_t>(__FILE__);
 
-  part_1(inputs);
+  input_t num1, num2, num3;
+  std::tie(num1, num2) = part_1(inputs);
+  std::cout << "Part 1: " << num1 << " * " << num2 << " = " << num1 * num2 << std::endl;
 
-  part_2(inputs);
+  std::tie(num1, num2, num3) = part_2(inputs);
+  std::cout << "Part 2: " << num1 << " * " << num2 << " * " << num3 << " = "
+            << num1 * num2 * num3 << std::endl;
 }

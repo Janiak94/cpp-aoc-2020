@@ -5,8 +5,7 @@ project(
   VERSION 0.1.0
   LANGUAGES CXX)
 
-# add_compile_options(-std=c++17 -Wall -Wextra -Wpedantic -Werror)
-add_compile_options(-std=c++17)
+add_compile_options(-std=c++17 -Wall -Wextra -Wpedantic -Werror)
 
 add_subdirectory(src)
 add_subdirectory(apps)
