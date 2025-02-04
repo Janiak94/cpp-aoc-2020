@@ -128,7 +128,9 @@ class InputReader {
     std::vector<std::string> lines{};
     std::string buf{};
     while (std::getline(m_stream, buf, '\n')) {
-      lines.push_back(std::move(buf));
+      if (!buf.empty()) {
+        lines.push_back(std::move(buf));
+      }
     }
     return lines;
   }
